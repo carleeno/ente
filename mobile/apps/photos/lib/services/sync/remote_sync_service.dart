@@ -203,19 +203,7 @@ class RemoteSyncService {
       _existingSync?.complete();
       _existingSync = null;
       _logger.warning("Error executing remote sync", e, s);
-
-      if (flagService.internalUser ||
-          // rethrow whitelisted error so that UI status can be updated correctly.
-          {
-            UnauthorizedError,
-            NoActiveSubscriptionError,
-            WiFiUnavailableError,
-            StorageLimitExceededError,
-            SyncStopRequestedError,
-            NoMediaLocationAccessError,
-          }.contains(e.runtimeType)) {
-        rethrow;
-      }
+      rethrow;
     } finally {
       _isExistingSyncSilent = false;
     }
